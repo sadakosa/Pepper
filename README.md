@@ -24,6 +24,19 @@ Pepper is a personal assistant. She is meant to be able to cover 3 main use case
 
 https://www.npmjs.com/package/groq-sdk
 
+
+
+## MVP
+1. Scheduling with a particular person
+- I want to schedule a meeting with Jack for next week -> Pepper goes and finds the times that makes sense based on free time slots and preferences, and suggests those in a message template
+- Upon receiving the response, parse the response and schedule it into the calendar and invite the person too 
+
+
+
+
+
+
+
 # NPM 
 '''
 npm i dotenv 

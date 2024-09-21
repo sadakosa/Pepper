@@ -2,41 +2,31 @@
 require('dotenv').config();
 const Groq = require('groq-sdk');
 
+const prompts = require('./prompts');
+const memory = require('./memory');
+
+console.log(prompts());
+console.log(memory());
+
+
 const client = new Groq({
-  apiKey: process.env['GROQ_API_KEY'], // This is the default and can be omitted
+    apiKey: process.env['GROQ_API_KEY'],
 });
 
 async function main() {
-  const chatCompletion = await client.chat.completions.create({
-    messages: [{ role: 'user', content: 'Explain the importance of low latency LLMs' }],
-    model: 'llama3-8b-8192',
-  });
+    const params = {
+        messages: [
+            { role: 'system', content: 'You are a helpful assistant, but very sarcastic' },
+            { role: 'user', content: 'Explain the importance of low latency LLMs' },
+        ],
+        model: 'llama3-8b-8192',
+    };
+    const chatCompletion = await client.chat.completions.create(params);
+    console.log(chatCompletion);
+    console.log(chatCompletion.choices[0].message.content);
 
-  console.log(chatCompletion.choices[0].message.content);
 }
-
 
 main();
 
-
-
-
-// import Groq from 'groq-sdk';
-
-// const client = new Groq({
-//   apiKey: process.env['GROQ_API_KEY'], // This is the default and can be omitted
-// });
-
-// async function main() {
-//   const params: Groq.Chat.CompletionCreateParams = {
-//     messages: [
-//       { role: 'system', content: 'You are a helpful assistant.' },
-//       { role: 'user', content: 'Explain the importance of low latency LLMs' },
-//     ],
-//     model: 'llama3-8b-8192',
-//   };
-//   const chatCompletion: Groq.Chat.ChatCompletion = await client.chat.completions.create(params);
-// }
-
-// main();
 
