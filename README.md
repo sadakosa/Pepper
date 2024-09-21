@@ -17,5 +17,14 @@ Pepper is a personal assistant. She is meant to be able to cover 3 main use case
 ## What we need to do to produce the scheduler
 1. Have an Ollama/LLM model running
 2. Connect to Google Calendar, Whatsapp, Tele, Gmail, etc. 
+2a. Know the preferences of the bosses
 3. Have a text interface 
 4. Have a speech based interface 
+
+
+https://www.npmjs.com/package/groq-sdk
+
+# NPM 
+'''
+npm i dotenv 
+'''
