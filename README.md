@@ -13,3 +13,9 @@ Pepper is a personal assistant. She is meant to be able to cover 3 main use case
     2. Take instructions like schedule this guy for next week or every month and liaise with the guy directly to schedule that
         1. Connection to gmail, WhatsApp, tele, etc. required
     3. [Bonus points] Understand when something is urgent and know when to break the rules
+
+## What we need to do to produce the scheduler
+1. Have an Ollama/LLM model running
+2. Connect to Google Calendar, Whatsapp, Tele, Gmail, etc. 
+3. Have a text interface 
+4. Have a speech based interface 
