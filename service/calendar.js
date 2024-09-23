@@ -2,16 +2,20 @@ const fs = require('fs');
 const path = require('path');
 const file = path.join(__dirname, '../data/calendar.csv');
 
-const sampleEvent = {
-  start: '2021-01-01 12:00',
-  end: '2021-01-01 13:00',
-  eventTitle: 'Meeting with John Doe',
-  inviteeEmail: 'john@example.com',
-};
-
 const calendar = {
   addEvent: async (event) => {
-    const eventString = formatEvent(event);
+    let eventString;
+    
+    // Check if the event is already a string
+    if (typeof event === 'string') {
+      eventString = event; // Use the string directly
+    } else if (typeof event === 'object') {
+      // If it's an object, format it to the desired format
+      eventString = formatEvent(event);
+    } else {
+      throw new Error('Invalid event format. Must be a string or an object.');
+    }
+    
     fs.appendFileSync(file, `${generateEventId()},${eventString}\n`);
   },
   getAll: async () => {
@@ -43,7 +47,7 @@ const calendar = {
   }
 };
 
-// Adjust this function to parse the new format
+// Parsing the CSV data into event objects
 const parseEvents = (data) => {
   const lines = data.trim().split('\n');
   return lines.map((line) => {
@@ -58,13 +62,13 @@ const parseEvents = (data) => {
   });
 }
 
-// Adjust this function to save the new format
+// Saving events back to the CSV
 const saveEvents = (events) => {
   const data = events.map(event => `${event.id},${event.start},${event.end},${event.eventTitle},${event.inviteeEmail}`).join('\n');
   fs.writeFileSync(file, data);
 };
 
-// Helper function to format the event before saving
+// Formatting an event object to string
 const formatEvent = (event) => {
   const { start, end, eventTitle, inviteeEmail } = event;
   return `${start},${end},${eventTitle},${inviteeEmail}`;
