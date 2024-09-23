@@ -2,6 +2,17 @@ const fs = require('fs');
 const path = require('path');
 const file = path.join(__dirname, '../data/calendar.csv');
 
+// Both will work
+const sample1 = {
+  start: '2024-10-05 10:00', // timestamp1
+  end: '2024-10-05 11:00',   // timestamp2
+  eventTitle: 'Team Meeting',
+  inviteeEmail: 'team@example.com',
+};
+
+const sample2 = '2024-10-06 14:00,2024-10-06 15:00,Client Call,client@example.com';
+
+
 const calendar = {
   addEvent: async (event) => {
     let eventString;
