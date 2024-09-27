@@ -1,8 +1,5 @@
 require('dotenv').config();
-
-async function warn(msg) {
-  console.log(`Warning: ${msg}`);
-}
+const { warn } = require('../lib/common');
 
 const config = {
   model: process.env.GROQ_MODEL || 'llama3-8b-8192',

@@ -1,4 +1,4 @@
-const { config } = require('../conf/groq');
+const { config } = require('../config/groq');
 const Groq = require('groq-sdk');
 
 const client = new Groq({
