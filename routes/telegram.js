@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const { telegram } = require('../service/telegram')
+const { telegram } = require('../services/telegram')
+const messages = require('../controllers/messages');
 
 // ROUTES
 router.get('/initialize', async (req, res) => {
     try {
-        const { host, url } = req.params;
+        const { host, url } = req.query;
         if (!host && !url) return res.status(401).send("Invalid request.")
 
         const webhook = url || `${host}/telegram/webhook`;
+        console.log(webhook)
         await telegram.initialize(webhook);
 
         res.send(`Initialized: ${webhook}`)
-
     } catch (err){
         console.log(err)
         res.status(500).send("Server error.")
@@ -22,11 +23,7 @@ router.get('/initialize', async (req, res) => {
 
 router.post('/webhook', async (req, res) => {
     try {
-        //log req headers
-        console.log(req.header)
-
-        //log req body
-        console.log(req.body)
+        await messages.handler(req.body);
         res.send('ok');
     } catch (err){
         console.log(err)

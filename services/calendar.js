@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { generateId } = require('../utils/common');
 const file = path.join(__dirname, '../data/calendar.csv');
 
 // Both will work
@@ -11,7 +12,6 @@ const sample1 = {
 };
 
 const sample2 = '2024-10-06 14:00,2024-10-06 15:00,Client Call,client@example.com';
-
 
 const calendar = {
   addEvent: async (event) => {
@@ -27,7 +27,7 @@ const calendar = {
       throw new Error('Invalid event format. Must be a string or an object.');
     }
     
-    fs.appendFileSync(file, `${generateEventId()},${eventString}\n`);
+    fs.appendFileSync(file, `${generateId()},${eventString}\n`);
   },
   getAll: async () => {
     const data = fs.readFileSync(file, 'utf8');
@@ -45,7 +45,8 @@ const calendar = {
     let events = await calendar.getAll();
     events = events.map(event => {
       if (event.id === eventId) {
-        return { id: event.id, ...updatedEvent }; // retain id, update other fields
+        // retain id, update other fields
+        return { id: event.id, ...updatedEvent }; 
       }
       return event;
     });
@@ -84,9 +85,5 @@ const formatEvent = (event) => {
   const { start, end, eventTitle, inviteeEmail } = event;
   return `${start},${end},${eventTitle},${inviteeEmail}`;
 };
-
-function generateEventId() {
-  return Math.random().toString(36).substring(2, 15);
-}
 
 module.exports = calendar;

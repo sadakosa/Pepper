@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { warn } = require('../lib/common');
+const { warn } = require('../utils/common');
 
 const config = {
   model: process.env.GROQ_MODEL || 'llama3-8b-8192',

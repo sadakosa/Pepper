@@ -1,0 +1,69 @@
+
+{
+    update_id: 16356246,
+    message: {
+      message_id: 3,
+      from: {
+        id: 1328690782,
+        is_bot: false,
+        first_name: 'Scott - KABN',
+        username: 'scott88lee',
+        language_code: 'en'
+      },
+      chat: {
+        id: 1328690782,
+        first_name: 'Scott - KABN',
+        username: 'scott88lee',
+        type: 'private'
+      },
+      date: 1727524214,
+      text: 'Hey'
+    }
+  }
+  POST /telegram/webhook 200 1.339 ms - 2
+  { ok: true, result: true, description: 'Webhook was set' }
+  GET /telegram/initialize?host=https://ce2d-2400-79e0-9070-f301-25e-ea46-daae-3398.ngrok-free.app 200 3576.291 ms - 96
+  [Function: header]
+  {
+    update_id: 16356247,
+    message: {
+      message_id: 4,
+      from: {
+        id: 1328690782,
+        is_bot: false,
+        first_name: 'Scott - KABN',
+        username: 'scott88lee',
+        language_code: 'en'
+      },
+      chat: {
+        id: 1328690782,
+        first_name: 'Scott - KABN',
+        username: 'scott88lee',
+        type: 'private'
+      },
+      date: 1727527770,
+      text: 'Yeah'
+    }
+  }
+  POST /telegram/webhook 200 0.900 ms - 2
+  [Function: header]
+  {
+    update_id: 16356248,
+    message: {
+      message_id: 5,
+      from: {
+        id: 6279283823,
+        is_bot: false,
+        first_name: 'Sarah',
+        last_name: 'Tan'
+      },
+      chat: {
+        id: -4268892997,
+        title: 'Elizabeth, Papa and Mama',
+        type: 'group',
+        all_members_are_administrators: true
+      },
+      date: 1727528138,
+      text: 'Hello'
+    }
+  }

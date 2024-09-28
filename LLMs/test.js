@@ -1,6 +1,6 @@
-const ollama = require('./service/ollama');
-const groq = require('./service/groq');
-const calendar = require('./service/calendar');
+const ollama = require('../services/ollama');
+const groq = require('../services/groq');
+const calendar = require('../services/calendar');
 
 async function main() {
   // console.log(await ollama.generateSync('Once upon a time, there was a'));
