@@ -1,23 +1,31 @@
 const express = require('express');
 const app = express();
 
-const { config } = require('./config/server');
+// setup middleware
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+const morgan = require('morgan');
+app.use(morgan('dev'));
+
+// Routes
 app.get('/', (req, res) => {
-    res.send('Hello World'); F
+    res.send('Hello World, this works.'); F
 });
 
-app.get('/initialize', (req, res) => {
-    res.send('Initialize');
-}); 
+app.use('/telegram', require('./routes/telegram'))
 
-app.post('/', (req, res) => {
-    // console log headers
-    console.log(req.headers);
-    // console log body
-    console.log(req.body);
-    res.send('Hello World');
+//404 Precessing
+app.use('*', (req, res) => {
+    res.status(404).json(
+        {
+            code: 404, 
+            message: 'Error 404 not found'
+        }
+    );
 });
+  
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
