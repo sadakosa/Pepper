@@ -14,10 +14,10 @@ const messages = {
             
             // Message to Groq
             if (!message.from.is_bot) {
-                const { chat, text } = body.message;
+                const { chat, text } = message;
                 groq.updateMemory(chat, text);
 
-                const response = await groq.respondFromMemory(chat.id, text);
+                const response = await groq.respondFromMemory(chat, text);
                 if (response) {
                     console.log("GroqMessage:", response)
                     await telegram.sendMessage(chat.id, response);

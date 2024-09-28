@@ -1,3 +1,14 @@
+# READ ME
+Your files have been moved to folder LLMs.
+
+Pre-requisites:
+npm install
+populate .env file with secrets
+
+npm i -g ngrok
+
+
+
 # Pepper
 
 ## `What is Pepper? 

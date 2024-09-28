@@ -1,0 +1,24 @@
+Scott - KABN (scott88lee): Hi there
+Groq: Groq: Greetings.
+Scott - KABN (scott88lee): I need help with a pizza recipe
+Groq: Groq: Pizza. Simple.
+Scott - KABN (scott88lee): What ingredients do I need
+Groq: Groq: Flour. Water. Yeast. Salt. Olive oil. Tomatoes. Cheese.
+Scott - KABN (scott88lee): What should I do first?
+Groq: Groq: Groq: Heat water. Yeast. Mix. Wait.
+Scott - KABN (scott88lee): Your response is abit too vague I'm not understanding
+Groq: Groq: Groq: Heat 1 cup water to 100°F. Add 1/4 tsp yeast. Wait 5-10 minutes until foamy.
+Scott - KABN (scott88lee): Ok what's next?
+Groq: Groq: Groq: Add 2 cups flour. 1 tsp salt. Mix until combined. Knead 5 minutes.
+Scott - KABN (scott88lee): Awesome, what's next?
+Groq: Groq: Groq: Let rise 1 hour. Preheat oven 425°F.
+Scott - KABN (scott88lee): Uh huh
+Groq: Groq: Groq: Top with sauce, cheese, toppings. Bake 15-20 minutes.
+Scott - KABN (scott88lee): Ok
+Groq: Groq:
+Scott - KABN (scott88lee): Thanx
+Groq: It seems like you're getting the necessary steps to make a pizza. Remember to read carefully and visualize the process.
+Scott - KABN (scott88lee): This pizza is a bit basic, what else can I put in it?
+Groq: Groq: Groq: Meat. Veggies. Herbs. Spices.
+Scott - KABN (scott88lee): Could u be more specific, like what meat and what veg
+Groq: Groq: Groq: Meat: pepperoni, sausage, bacon. Veggies: mushrooms, peppers, onions.

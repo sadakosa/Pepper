@@ -27,21 +27,29 @@ const groq = {
     fs.writeFileSync(memoryFile, '');
     console.log('Memory cleared.');
   },
-  
+
   respondFromMemory: async (chat, text) => {
-    const { id: chatId } = chat;
-    const memoryFile = path.join(__dirname, `../data/${chatId}.txt`);
+    const { id } = chat;
+    const memoryFile = path.join(__dirname, `../data/${id}.txt`);
 
-    if (!fs.existsSync(memoryFile)) return null;
+    let memory = '';
+    if (fs.existsSync(memoryFile)) {
+      memory = fs.readFileSync(memoryFile, 'utf8');
+    }
+    console.log('Memory:', memory);
 
-    const memory = fs.readFileSync(memoryFile, 'utf8');
-    const lines = memory.split('\n');
-    const lastMessage = lines[lines.length - 2];
+    const groqResponse = await client.chat.completions.create({
+      messages: [
+        { role: 'system', 
+          content: 'You are the responding as Groq in this conversation, this is a text only chat. your response should be as short as possible' },
+        { role: 'user', content: memory }
+      ],
+      model: 'llama3-8b-8192',
+    });
 
-    const [name, message] = lastMessage.split(':');
-    if (!name || !message) return null;
-
-    return message;
+    // If Groq has a response, update memory
+    fs.appendFileSync(memoryFile, `Groq: ${groqResponse.choices[0].message.content}\n`);
+    return groqResponse.choices[0].message.content;
   }
 };
 
