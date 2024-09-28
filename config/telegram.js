@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { warn } = require('../lib/common');s
+const { warn } = require('../lib/common');
 
 const config = {
     telegramToken: process.env.TELEGRAM_TOKEN || warn('TELEGRAM_API_KEY not set'),

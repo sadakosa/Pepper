@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { config } = require('./config/telegram');
+const { config } = require('../config/telegram');
 
 const BASE_URL = `https://api.telegram.org/bot${config.telegramToken}`;
 
