@@ -48,7 +48,7 @@ const groq = {
     });
 
     // If Groq has a response, update memory
-    fs.appendFileSync(memoryFile, `Groq: ${groqResponse.choices[0].message.content}\n`);
+    fs.appendFileSync(memoryFile, `${groqResponse.choices[0].message.content}\n`);
     return groqResponse.choices[0].message.content;
   }
 };
