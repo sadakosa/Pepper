@@ -23,7 +23,8 @@ router.get('/initialize', async (req, res) => {
 
 router.post('/webhook', async (req, res) => {
     try {
-        await messages.handler(req.body);
+        const { message } = req.body;
+        await messages.handler(message);
         res.send('ok');
     } catch (err){
         console.log(err)

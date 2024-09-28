@@ -2,13 +2,22 @@ const telegram = require('../services/telegram');
 const groq = require('../services/groq');
 
 const messages = {
-    handler: async (body) => {
+    handler: async (message) => {
         try {
-            const { message } = body;
-            console.log('TeleMessage:', message)
+            console.log('Telegram Message:', message)
+
+            // Command routing
+            if (message.text.startsWith('/')) {
+                await handleCommand(message);
+                return;
+            }
+            
+            // Message to Groq
             if (!message.from.is_bot) {
                 const { chat, text } = body.message;
-                const response = await groq.generate(text);
+                groq.updateMemory(chat, text);
+
+                const response = await groq.respondFromMemory(chat.id, text);
                 if (response) {
                     console.log("GroqMessage:", response)
                     await telegram.sendMessage(chat.id, response);
@@ -18,6 +27,19 @@ const messages = {
             console.log(err)
             res.status(500).send("Server error.")
         }
+    }
+}
+
+async function handleCommand(message) {
+    // Handle commands
+    const command = message.text.split(' ')[0];
+    switch (command) {
+        case '/clearMemory':
+            groq.clearMemory(message.chat.id);
+            break;
+        default:
+            await telegram.sendMessage(message.chat.id, 'Invalid command.');
+            break;
     }
 }
 
