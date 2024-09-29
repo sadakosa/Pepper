@@ -17,6 +17,8 @@ const messages = {
                 const { chat, text } = message;
                 groq.updateMemory(chat, text);
 
+                chat.from = message.from;
+
                 const response = await groq.respondFromMemory(chat, text);
                 if (response) {
                     console.log("GroqMessage:", response)
@@ -33,9 +35,16 @@ const messages = {
 async function handleCommand(message) {
     // Handle commands
     const command = message.text.split(' ')[0];
+
+    // everything after the command is one string
+    const args = message.text.split(' ').slice(1).join(' ');
+    console.log('args:', args);
     switch (command) {
         case '/clearMemory':
             groq.clearMemory(message.chat.id);
+            break;
+        case '/setSystemPrompt':
+            groq.setSystemPrompt(args);
             break;
         default:
             await telegram.sendMessage(message.chat.id, 'Invalid command.');

@@ -17,40 +17,63 @@ const groq = {
   },
 
   updateMemory: async (chat, text) => {
-    const { id, first_name, username } = chat;
-    const memoryFile = path.join(__dirname, `../data/${id}.txt`);
-    fs.appendFileSync(memoryFile, `${first_name} (${username}): ${text}\n`);
+    const { id, first_name } = chat;
+    const memoryFile = path.join(__dirname, `../data/${id}.dat`);
+    fs.appendFileSync(memoryFile, `${first_name}: ${text}\n`);
   },
 
   clearMemory: async (chatId) => {
-    const memoryFile = path.join(__dirname, `../data/${chatId}.txt`);
+    const memoryFile = path.join(__dirname, `../data/${chatId}.dat`);
     fs.writeFileSync(memoryFile, '');
     console.log('Memory cleared.');
   },
 
+  setSystemPrompt : async (prompt) => {
+    const storedPrompt = path.join(__dirname, `../data/system.txt`);
+    fs.writeFileSync(storedPrompt, prompt);
+    console.log('System prompt updated.');
+  },
+
   respondFromMemory: async (chat, text) => {
     const { id } = chat;
-    const memoryFile = path.join(__dirname, `../data/${id}.txt`);
 
-    let memory = '';
-    if (fs.existsSync(memoryFile)) {
-      memory = fs.readFileSync(memoryFile, 'utf8');
-    }
-    console.log('Memory:', memory);
+    const memory = getMemory(id);
+    const systemPrompt = getSystemPrompt();
 
+    console.log('System Prompt:', systemPrompt);
+    
     const groqResponse = await client.chat.completions.create({
       messages: [
-        { role: 'system', 
-          content: 'You are the responding as Groq in this conversation, this is a text only chat. your response should be as short as possible' },
+        { role: 'system', content: systemPrompt },
         { role: 'user', content: memory }
       ],
       model: 'llama3-8b-8192',
     });
 
     // If Groq has a response, update memory
-    fs.appendFileSync(memoryFile, `${groqResponse.choices[0].message.content}\n`);
-    return groqResponse.choices[0].message.content;
+    const response = groqResponse.choices[0].message.content;
+    updateMemory(chat, response);
+    return response;
   }
 };
+
+function updateMemory(chat, response) {
+  const { id, first_name } = chat;
+  const memoryFile = path.join(__dirname, `../data/${id}.dat`);
+  fs.appendFileSync(memoryFile, `${response}\n`);
+}
+
+function getMemory(id) {
+  const memoryFile = path.join(__dirname, `../data/${id}.dat`);
+  let memory = fs.readFileSync(memoryFile, 'utf8');
+  return memory || '';
+}
+
+function getSystemPrompt() {
+  const storedPrompt = path.join(__dirname, `../data/system.txt`);
+  const prompt = fs.readFileSync(storedPrompt, 'utf8');
+  
+  return prompt || 'Your name is Aristotle, you are the other party in this conversation, response length should be no longer that one or two sentences.';
+}
 
 module.exports = groq;

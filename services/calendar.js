@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { generateId } = require('../utils/common');
-const file = path.join(__dirname, '../data/calendar.csv');
+const file = path.join(__dirname, '../data/calendar.dat');
 
 // Both will work
 const sample1 = {

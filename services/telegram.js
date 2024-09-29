@@ -17,8 +17,11 @@ module.exports = {
     },
     sendMessage: async (chatId, message) => {
         try {
-            const url = `${BASE_URL}/sendMessage?chat_id=${chatId}&text=${message}`;
-            const response = await axios.get(url);
+            const url = `${BASE_URL}/sendMessage`;
+            const response = await axios.post(url, {
+                chat_id: chatId,
+                text: message
+            });
             console.log(response.data);
         } catch (err) {
             console.log(err);
