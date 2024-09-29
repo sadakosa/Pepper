@@ -18,10 +18,12 @@ module.exports = {
     sendMessage: async (chatId, message) => {
         try {
             const url = `${BASE_URL}/sendMessage`;
-            const response = await axios.post(url, {
+            const data = {
                 chat_id: chatId,
                 text: message
-            });
+            };
+            // set timeout to 10 seconds and keepalive to true
+            const response = await axios.post(url, data, { timeout: 10000, keepAlive: true });
             console.log(response.data);
         } catch (err) {
             console.log(err);
