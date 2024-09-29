@@ -17,8 +17,7 @@ const messages = {
                 const { chat, text } = message;
                 groq.updateMemory(chat, text);
 
-                chat.from = message.from;
-
+                chat.first_name = message.from.first_name;
                 const response = await groq.respondFromMemory(chat, text);
                 if (response) {
                     console.log("GroqMessage:", response)
