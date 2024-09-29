@@ -71,9 +71,10 @@ function getMemory(id) {
 
 function getSystemPrompt() {
   const storedPrompt = path.join(__dirname, `../data/system.txt`);
-  const prompt = fs.readFileSync(storedPrompt, 'utf8');
-  
-  return prompt || 'Your name is Aristotle, you are the other party in this conversation, response length should be no longer that one or two sentences.';
-}
+  if (!fs.existsSync(storedPrompt)) {
+    return 'Your name is Aristotle, you are the other party in this conversation, response length should be no longer that one or two sentences.';
+  }
+  return fs.readFileSync(storedPrompt, 'utf8');
+};
 
 module.exports = groq;
