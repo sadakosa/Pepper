@@ -15,9 +15,9 @@ const messages = {
             // Message to Groq
             if (!message.from.is_bot) {
                 const { chat, text } = message;
+                chat.first_name = message.from.first_name;
                 groq.updateMemory(chat, text);
 
-                chat.first_name = message.from.first_name;
                 const response = await groq.respondFromMemory(chat, text);
                 if (response) {
                     console.log("GroqMessage:", response)
@@ -26,7 +26,6 @@ const messages = {
             }
         } catch (err){
             console.log(err)
-            res.status(500).send("Server error.")
         }
     }
 }

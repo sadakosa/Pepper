@@ -19,6 +19,9 @@ const groq = {
   updateMemory: async (chat, text) => {
     const { id, first_name } = chat;
     const memoryFile = path.join(__dirname, `../data/${id}.dat`);
+    if (!fs.existsSync(memoryFile)) {
+      fs.writeFileSync(memoryFile, '');
+    }
     fs.appendFileSync(memoryFile, `${first_name}: ${text}\n`);
   },
 
@@ -34,7 +37,7 @@ const groq = {
     console.log('System prompt updated.');
   },
 
-  respondFromMemory: async (chat, text) => {
+  respondFromMemory: async (chat) => {
     const { id } = chat;
 
     const memory = getMemory(id);
@@ -52,16 +55,11 @@ const groq = {
 
     // If Groq has a response, update memory
     const response = groqResponse.choices[0].message.content;
-    updateMemory(chat, response);
+    const memoryFile = path.join(__dirname, `../data/${id}.dat`);
+    fs.appendFileSync(memoryFile, `${response}\n`);
     return response;
   }
 };
-
-function updateMemory(chat, response) {
-  const { id, first_name } = chat;
-  const memoryFile = path.join(__dirname, `../data/${id}.dat`);
-  fs.appendFileSync(memoryFile, `${response}\n`);
-}
 
 function getMemory(id) {
   const memoryFile = path.join(__dirname, `../data/${id}.dat`);

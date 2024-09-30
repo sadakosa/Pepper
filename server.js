@@ -1,4 +1,5 @@
 const express = require('express');
+const ngrok = require('ngrok');
 const app = express();
 
 // setup middleware
@@ -26,6 +27,11 @@ app.use('*', (req, res) => {
     );
 });
   
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(3000, async () => {
+    const host = await ngrok.connect(3000);
+    app.hostName = host;
+    console.log('Server is running on port 3000\n', host);
+
+    const { telegram } = require('./services/telegram');
+    await telegram.initialize(`${host}/telegram/webhook`);
 });
