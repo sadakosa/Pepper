@@ -12,7 +12,8 @@ app.use(morgan('dev'));
 
 // Routes
 app.get('/', (req, res) => {
-    res.send('Hello World, this works.'); F
+    const { hostName } = app;
+    res.send(`Hello, this app is exposed to the internet @: ${hostName}`);
 });
 
 app.use('/telegram', require('./routes/telegram'))

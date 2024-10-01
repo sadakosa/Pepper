@@ -15,12 +15,13 @@ To modify bot behavior
 edit file ``/controllers/messages.js``
 
 
-Ps: I know youre not very keen on working on a scheduling bot now. Its ok.
-I just want to complete something instead of leaving it hanging.
-The telebot interfaces with an LLM now.
+Ps: I know you're not very keen on working on a scheduling bot now. Its ok.
+I just want to leave the project with a complete feature, and also a
+template for you to build future apps with.
 
-And could be easily launched from a single entry point, server.js
-You can use this to do whatever you want from here on.
+The telebot interfaces with an LLM now.
+Easily launched from a single entry point, server.js
+You may use this to do whatever you want from here on.
 
 I'm going to work on my own thing now.
 
